@@ -1,0 +1,82 @@
+﻿@model DevWebReceitas.Application.Dtos.Receita.ReceitaEditDto
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Receita</h4>
+<hr />
+<div class="row">
+    <div class="col-md-10">
+        <form asp-action="Edit" enctype="multipart/form-data">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Codigo" class="control-label"></label>
+                <input asp-for="Codigo" class="form-control" readonly />
+                <span asp-validation-for="Codigo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CodigoCategoria" class="control-label"></label>
+                @Html.DropDownList("CodigoCategoria", (SelectList)ViewBag.Categorias, new { @class = "form-control" })
+                <span asp-validation-for="CodigoCategoria" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Titulo" class="control-label"></label>
+                <input asp-for="Titulo" class="form-control" />
+                <span asp-validation-for="Titulo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Descricao" class="control-label"></label>
+                <input asp-for="Descricao" class="form-control" />
+                <span asp-validation-for="Descricao" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ingredientes" class="control-label"></label>
+                <textarea asp-for="Ingredientes" class="form-control"></textarea>
+                <span asp-validation-for="Ingredientes" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ModoPreparo" class="control-label"></label>
+                <textarea asp-for="ModoPreparo" class="form-control"></textarea>
+                <span asp-validation-for="ModoPreparo" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Imagem" class="control-label"></label>
+                <input asp-for="Imagem" accept="image/png" onchange="onFileSelected(event);">
+                <span asp-validation-for="Imagem" class="text-danger"></span>
+                <figure class="figure">
+                    @if (ViewBag.Imagem != null)
+                    {
+                        <img src="data:image;base64,@Convert.ToBase64String(@ViewBag.Imagem)" id="image" class="img-thumbnail rounded border border-secondary" width="60%">
+                    }
+                    else
+                    {
+                        <img src="#" id="image" class="img-thumbnail rounded border border-secondary" width="60%">
+                    }
+
+                </figure>
+
+                <span asp-validation-for="Imagem" class="text-danger"></span>
+            </div>
+
+            <hr />
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+
+        </form>
+    </div>
+
+</div>
+
+<div>
+    <a asp-action="Index">Voltar para a lista</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,53 @@
+﻿@model IEnumerable<DevWebReceitas.Application.Dtos.Receita.ReceitaDto>
+
+@{
+    ViewData["Title"] = "Receitas";
+}
+
+<h1>Receitas</h1>
+
+<p>
+    <a asp-action="Create">Incluir</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Codigo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Titulo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Categoria)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Descricao)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Codigo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Titulo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Categoria.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descricao)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Edit", new { codigo = item.Codigo }) |
+                @Html.ActionLink("Detalhes", "Details", new { codigo = item.Codigo }) |
+                @Html.ActionLink("Excluir", "Delete", new { codigo = item.Codigo })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
