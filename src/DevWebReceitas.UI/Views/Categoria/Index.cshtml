@@ -1,13 +1,12 @@
 ﻿@model IEnumerable<DevWebReceitas.Application.Dtos.Categoria.CategoriaDto>
 
 @{
-    ViewData["Title"] = "Lista";
+    ViewData["Title"] = "Categorias";
 }
 
-<h1>Lista</h1>
-
+<h1>Categorias</h1>
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Incluir</a>
 </p>
 <table class="table">
     <thead>
@@ -22,20 +21,23 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Codigo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nome)
-            </td>
-            <td>
-                @Html.ActionLink("Editar", "Edit", new {  codigo = item.Codigo  }) |
-                @Html.ActionLink("Detalhes", "Details", new { codigo = item.Codigo }) |
-                @Html.ActionLink("Excluir", "Delete", new { codigo = item.Codigo })
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Codigo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                <td>
+                    @Html.ActionLink("Editar", "Edit", new { codigo = item.Codigo }) |
+                    @Html.ActionLink("Detalhes", "Details", new { codigo = item.Codigo }) |
+                    @Html.ActionLink("Excluir", "Delete", new { codigo = item.Codigo })
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+
