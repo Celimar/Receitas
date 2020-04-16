@@ -75,6 +75,11 @@ namespace DevWebReceitas.Domain.Services
 
         public void Remove(Guid codigo)
         {
+            var receita = FindByCode(codigo);
+            if (receita == null)
+                throw new ArgumentException("Receita não encontrada");
+
+            ExcluirArquivo(receita);
             _receitaRepository.Remove(codigo);
         }
 
@@ -86,6 +91,7 @@ namespace DevWebReceitas.Domain.Services
 
             entity.Id = receita.Id;
             entity.DataUltimaAlteracao = DateTime.Now;
+            entity.CaminhoImagem = receita.CaminhoImagem;
 
             using (var trans = new TransactionScope())
             {
@@ -114,6 +120,11 @@ namespace DevWebReceitas.Domain.Services
                 if (!Directory.Exists(path))
                     Directory.CreateDirectory(path);
 
+                if (entity.CaminhoImagem != null)
+                    ExcluirArquivo(entity);
+
+                entity.NomeArquivo = Guid.NewGuid().ToString() + new FileInfo(entity.NomeArquivo).Extension;
+
                 var fullPath = path + entity.NomeArquivo;
                 using (Stream file = File.OpenWrite(fullPath))
                 {
@@ -124,6 +135,16 @@ namespace DevWebReceitas.Domain.Services
                 entity.CaminhoImagem = fullPath;
             }
         }
+
+        private static void ExcluirArquivo(Receita entity)
+        {
+            if (File.Exists(entity.CaminhoImagem))
+            {
+                File.Delete(entity.CaminhoImagem);
+            }
+            
+        }
+
     }
 }
 
