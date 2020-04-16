@@ -83,6 +83,6 @@
     <Build Include="6.3 - StortedProcedures\Categoria\Sproc_Categoria_DeleteByCode.sql" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="DevWebReceitas.DataBase.publish.xml" />
+    <None Include="DBReceitas.publish.xml" />
   </ItemGroup>
 </Project>

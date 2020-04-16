@@ -7,6 +7,7 @@ As
     ,R.Codigo
     ,R.[Descricao] 
     ,R.[ModoPreparo]
+    ,R.[Ingredientes]
     ,R.[CaminhoImagem]
     ,R.[NomeArquivo]
     ,R.[CategoriaId]
