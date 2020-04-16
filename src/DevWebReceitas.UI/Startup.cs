@@ -49,6 +49,7 @@ namespace DevWebReceitas.UI
                 app.UseExceptionHandler("/Home/Error");
             }
 
+            app.UseHttpsRedirection();
             app.UseStaticFiles();
             //app.UseCookiePolicy();
 

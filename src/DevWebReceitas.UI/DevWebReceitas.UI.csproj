@@ -5,17 +5,31 @@
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Content Remove="wwwroot\Upload\05c7c5b4-820d-4452-b8f2-7701e8e1e273..png" />
+    <Content Remove="wwwroot\Upload\0b9f7465-d922-4836-93ca-e7830b6a9588" />
+    <Content Remove="wwwroot\Upload\ad48615a-5f33-4847-8eae-de0b32215336.png" />
+    <Content Remove="wwwroot\Upload\Screenshot %282%29.png" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.2.7" />
+    <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.4" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.2" />
   </ItemGroup>
 
 
   <ItemGroup>
     <ProjectReference Include="..\DevWebReceitas.Application\DevWebReceitas.Application.csproj" />
     <ProjectReference Include="..\DevWebReceitas.Infra.CrossCutting\DevWebReceitas.Infra.CrossCutting.IoC.csproj" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Folder Include="wwwroot\Upload\" />
   </ItemGroup>
 
 </Project>
