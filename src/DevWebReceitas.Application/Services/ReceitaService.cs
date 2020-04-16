@@ -15,13 +15,16 @@ namespace DevWebReceitas.Application.Services
     {
         private readonly IReceitaDomainService _service;
         private readonly IReceitaDtoMapper _receitaDtoMapper;
+        private readonly IReceitaEditDtoMapper _receitaEditDtoMapper;
 
 
         public ReceitaService(IReceitaDomainService service,
-                                IReceitaDtoMapper receitaDtoMapper)
+                                IReceitaDtoMapper receitaDtoMapper,
+                                IReceitaEditDtoMapper receitaEditDtoMapper)
         {
             _service = service;
             _receitaDtoMapper = receitaDtoMapper;
+            _receitaEditDtoMapper = receitaEditDtoMapper;
         }
 
         public Guid Create(ReceitaInsertDto dto)
@@ -33,9 +36,9 @@ namespace DevWebReceitas.Application.Services
                 Titulo = dto.Titulo,
                 Descricao = dto.Descricao,
                 ModoPreparo = dto.ModoPreparo,
-                Imagem = dto.Imagem.ConvertToBytes(),
-                NomeArquivo = dto.Imagem.FileName,
                 Ingredientes = dto.Ingredientes,
+                Imagem = dto.Imagem != null ? dto.Imagem.ConvertToBytes(): null,
+                NomeArquivo = dto.Imagem != null ? dto.Imagem.FileName : null,
                 Categoria = new Categoria { Codigo = dto.CodigoCategoria }
             };
 
@@ -59,12 +62,33 @@ namespace DevWebReceitas.Application.Services
             var receita = _service.FindByCode(codigo);
             return _receitaDtoMapper.Map(receita);
         }
+        public ReceitaEditDto FindByCodeEditDto(Guid codigo)
+        {
+            var receita = _service.FindByCode(codigo);
+            return _receitaEditDtoMapper.Map(receita);
+        }
 
         public byte[] FindImageByCode(Guid codigo)
         {
             return _service.FindImageByCode(codigo);
         }
 
+        public void Update(ReceitaEditDto dto)
+        {
+            var objPersistencia = new Receita
+            {
+                Codigo = dto.Codigo,
+                Titulo = dto.Titulo,
+                Descricao = dto.Descricao,
+                ModoPreparo = dto.ModoPreparo,
+                Ingredientes = dto.Ingredientes,
+                Imagem = dto.Imagem != null ? dto.Imagem.ConvertToBytes() : null,
+                NomeArquivo = dto.Imagem != null ? dto.Imagem.FileName : null,
+                Categoria = new Categoria { Codigo = dto.CodigoCategoria }
+            };
+
+            _service.Update(objPersistencia);
+        }
         public void Update(ReceitaDto dto)
         {
             var objPersistencia = new Receita
@@ -73,9 +97,9 @@ namespace DevWebReceitas.Application.Services
                 Titulo = dto.Titulo,
                 Descricao = dto.Descricao,
                 ModoPreparo = dto.ModoPreparo,
-                Imagem = dto.Imagem.ConvertToBytes(),
-                NomeArquivo = dto.Imagem.FileName,
                 Ingredientes = dto.Ingredientes,
+                Imagem = dto.Imagem != null ? dto.Imagem.ConvertToBytes() : null,
+                NomeArquivo = dto.Imagem != null ? dto.Imagem.FileName : null,
                 Categoria = new Categoria { Codigo = dto.Categoria.Codigo }
             };
 

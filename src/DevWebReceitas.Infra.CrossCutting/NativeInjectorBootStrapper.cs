@@ -19,6 +19,7 @@ namespace DevWebReceitas.Infra.CrossCutting.IoC
             //services.AddSingleton<IHostingEnvironment>(new HostingEnvironment());
 
             // Mappers
+            services.AddSingleton<IReceitaEditDtoMapper, ReceitaEditDtoMapper>();
             services.AddSingleton<IReceitaDtoMapper, ReceitaDtoMapper>();
             services.AddSingleton<IReceitaMapper, ReceitaMapper>();
 
